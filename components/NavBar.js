@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-const NavBar = () => {
+const NavBar = (data) => {
     return (
-        <nav className=" bg-opacity-80 bg-red-500  justify-between items-center sm:fixed flex flex-shrink-0 lg:flex-col sm:flex-row sm:border-t-1   w-full bottom-0 h-10 lg:left-0 lg:h-full lg:w-24 p-10 ">
+        <nav className="  bg-red-500  justify-between items-center sm:fixed flex flex-shrink-0 lg:flex-col sm:flex-row sm:border-t-1   w-full bottom-0 h-10 lg:left-0 lg:h-full lg:w-24 p-10 ">
             <div className="flex flex-col items-center">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,15 +1,14 @@
-import FeatureCard from '@/components/FeatureCard'
+import SubjectCard from '@/components/FeaturedCard'
 
 const FeatureSection = ({ children }) => {
     return (
         <div className="w-screen h-auto bg-violet-600  p-10  flex-row flex justify-between">
-            <FeatureCard />
-            <FeatureCard />
-            <FeatureCard />
-            <FeatureCard />
+            <SubjectCard />
+            <SubjectCard />
+            <SubjectCard />
+            <SubjectCard />
         </div>
     )
 }
 
 export default FeatureSection
-// flex sm:flex-col lg:flex-row  sm:flex
