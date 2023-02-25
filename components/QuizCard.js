@@ -1,4 +1,4 @@
-import FeaturedCard from '@/components/FeatureCard'
+import FeaturedCard from '@/components/FeaturedCard'
 
 export default function FeaturedSection() {
     return (
