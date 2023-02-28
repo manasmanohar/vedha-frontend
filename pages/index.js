@@ -1,6 +1,31 @@
 import Head from 'next/head'
+import { supabase } from './../lib/supabaseClient'
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseAdmin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || '<your-admin-key>'
+)
 
 export default function Home() {
+    async function getPublicProfiles() {
+        try {
+            const { data, error } =
+                (await supabase.from) <
+                Profile >
+                'profiles'
+                    .select('id, username, avatar_url, website, updated_at')
+                    .order('updated_at', { ascending: false })
+
+            if (error || !data) {
+                throw error || new Error('No data')
+            }
+            console.log('Public profiles:', data)
+            setProfiles(data)
+        } catch (error) {
+            console.log('error', error.message)
+        }
+    }
     return (
         <>
             <Head>
