@@ -8,7 +8,7 @@ export default function NewQuiz() {
                 <p className="text-3xl text-black mb-2 ">New Quiz</p>
                 <p className="text-lg text-slate-700 mb-4 ">Upload PDF to generate Quiz </p>
 
-                <div class="flex items-center justify-center w-full">
+                <div className="flex items-center justify-center w-full">
                     <label
                         htmlFor="dropzone-file"
                         className="flex flex-col items-center justify-center w-full h-64 border-2 border-blue-300 border-dashed rounded-lg cursor-pointer bg-blue-50 dark:hover:bg-bray-800 dark:bg-blue-700 hover:bg-blue-100 dark:border-blue-600 dark:hover:border-blue-500 dark:hover:bg-blue-600"
