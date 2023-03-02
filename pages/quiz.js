@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Image from "next/image";
+import ProgressBar from "@/components/Progressbar";
 
 const qna = [
   {
@@ -52,6 +53,9 @@ function Quiz() {
           <div className="text-black text-xl font-medium my-6">
             <h3>Forces In Nature</h3>
           </div>
+        </div>
+        <div className="mx-24">
+          <ProgressBar totalQuestions={2} answeredQuestions={questionindex}/>
         </div>
         <div className=" p-4 bg-purple-300 rounded-lg w-3/4 mx-auto my-4 text-center ">
           <h2 className="text-2xl text-black font-medium  p-5">
