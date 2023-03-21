@@ -22,9 +22,6 @@ export default function NewQuiz() {
                     console.log(data.questions[i])
                     console.log('\n')
                 }
-                // Assume that `response` is your response object
-                const responseString = JSON.stringify(data.questions)
-                localStorage.setItem('response', responseString)
 
                 alert('Sucessfully uploaded')
                 console.log(response)
