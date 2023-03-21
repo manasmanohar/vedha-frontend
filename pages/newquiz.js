@@ -17,6 +17,12 @@ export default function NewQuiz() {
             if (response.status === 200) {
                 const data = await response.json()
                 setUploadMessage(data.message)
+                console.log(data)
+                for (let i = 0; i < data.questions.length; i++) {
+                    console.log(data.questions[i])
+                    console.log('\n')
+                }
+
                 alert('Sucessfully uploaded')
                 console.log(response)
             } else {
