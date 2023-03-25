@@ -1,7 +1,11 @@
+import { useRouter } from 'next/router'
 import NavBar from '@/components/NavBar'
 import Header from '@/components/Header'
 
-const Layout = ({ children, includeLayout }) => {
+const Layout = ({ children }) => {
+    const router = useRouter()
+    const includeLayout = !router.pathname.startsWith('/landing')
+
     return (
         <div className="flex flex-col lg:flex-row-reverse w-full h-screen bg-white">
             {includeLayout && <Header className="sticky top-0" />}
