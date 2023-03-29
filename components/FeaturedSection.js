@@ -27,7 +27,7 @@ const FeatureSection = ({ children }) => {
     return (
         <div className="bg-white">
             <p className="text-black text-3xl px-10 pt-10">Welcome back Manas!</p>
-            <div className="w-full  h-auto  px-10 py-3 pb-8  flex-row flex justify-start  overflow-x-scroll">
+            <div className="w-screen  h-auto border-b-2  px-10 py-3 pb-8 flex   gap-y-4 justify-between overflow-x-scroll">
                 {featuredSubjects.map((subject) => (
                     <FeaturedCard
                         key={subject.title}

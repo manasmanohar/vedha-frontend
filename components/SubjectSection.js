@@ -11,9 +11,7 @@ const SubjectSection = ({ children }) => {
     return (
         <div>
             <p className="text-black text-2xl px-10 pt-10">Daily Quiz</p>
-
-            {/* <div className="max-w-full overflow-x-auto bg-white-600 px-10 py-3 flex flex-row"> */}
-            <div className="w-screen  h-auto border-b-2  px-10 py-3 pb-8 flex   gap-y-4 justify-between overflow-x-scroll">
+            <div className="w-screen  h-auto border-b-2  px-10 py-3 pb-8 flex   gap-y-4 justify-between overflow-x-auto pr-64">
                 {subjects.map((subject) => (
                     <SubjectCard key={subject.id} title={subject.title} imageUrl={subject.imageUrl} />
                 ))}
