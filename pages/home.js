@@ -1,7 +1,8 @@
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
+import { withAuth } from '@/pages/api/auth/withAuth'
 
-export default function Home() {
+function Home() {
     return (
         <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
             <FeaturedSection />
@@ -9,3 +10,5 @@ export default function Home() {
         </div>
     )
 }
+
+export default withAuth(Home)

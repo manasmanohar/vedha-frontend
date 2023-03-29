@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import Image from 'next/image'
 import ProgressBar from '@/components/Progressbar'
+import { withAuth } from '@/pages/api/auth/withAuth'
 
 const qna = [
     {
@@ -135,4 +136,4 @@ function Quiz() {
     )
 }
 
-export default Quiz
+export default withAuth(Quiz)

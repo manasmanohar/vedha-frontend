@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
+import { withAuth } from './api/auth/withAuth'
 function Subject(props) {
     return (
         <>
@@ -47,4 +48,4 @@ function Subject(props) {
     )
 }
 
-export default Subject
+export default withAuth(Subject)

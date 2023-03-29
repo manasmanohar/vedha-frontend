@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/router'
 import { SessionProvider } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 import NavBar from '@/components/NavBar'
 import Header from '@/components/Header'
@@ -8,6 +9,11 @@ import Header from '@/components/Header'
 const Layout = ({ children }) => {
     const router = useRouter()
     const includeLayout = router.pathname.startsWith('/landing')
+    const { data: session } = useSession()
+    if (!session) {
+        router.replace('/landingpage')
+        return null
+    }
 
     return (
         <SessionProvider>
