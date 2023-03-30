@@ -1,17 +1,22 @@
-import SubjectCard from '@/components/FeaturedCard'
+import FeaturedCard from '@/components/FeaturedCard'
 
-const FeatureSection = ({ children }) => {
+const FeaturedSection = ({ children, featuredCardsData }) => {
     return (
         <div className="bg-white">
             <p className="text-black text-3xl px-10 pt-10">Welcome back Manas!</p>
-            <div className="w-screen  h-auto border-b-2  px-10 py-3 pb-8  flex-row flex justify-between overflow-x-scroll">
-                <SubjectCard />
-                <SubjectCard />
-                <SubjectCard />
-                <SubjectCard />
+            <div className="w-full  h-auto  px-10 py-3 pb-8  flex-row flex justify-start  overflow-x-scroll">
+                {featuredCardsData.map((card) => (
+                    <FeaturedCard
+                        key={card.id}
+                        title={card.title}
+                        chapter={card.chapter}
+                        imageUrl={card.imageUrl}
+                        subject={card.subject}
+                    />
+                ))}
             </div>
         </div>
     )
 }
 
-export default FeatureSection
+export default FeaturedSection

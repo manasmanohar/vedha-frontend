@@ -1,8 +1,17 @@
-const SubjectCard = ({ children }) => {
+import Image from 'next/image'
+
+const SubjectCard = ({ title, imageUrl }) => {
     return (
-        <div className="display:block rounded-xl w-40 h-40 lg:w-60 lg:h-60 bg-teal-400 p-4 sm:p-6 lg:p-8 my-4 lg:mx-2 lg:my-2 flex flex-col justify-end text-left hover:bg-teal-600 hover:text-white hover:shadow-lg cursor-pointer transition-all duration-300 ease-in-out">
-            <p className="texl-2xl">subject card</p>
-            <p>Chapter 1</p>
+        <div className="flex flex-shrink-0 relative w-48 h-48 mr-12 rounded-lg bg-green-200 hover:bg-teal-600 hover:text-white hover:shadow-lg cursor-pointer transition-all duration-300 ease-in-out min-w-48">
+            <div
+                style={{ transform: 'rotate(-10deg)' }}
+                className="flex justify-between px-10 pt-12 items-center h-3/4"
+            >
+                <Image src="/ufo.png" alt={title} width="90" height="90" />
+            </div>
+            <div className="absolute bottom-0 right-0 p-2">
+                <p className="text-2xl">{title}</p>
+            </div>
         </div>
     )
 }
