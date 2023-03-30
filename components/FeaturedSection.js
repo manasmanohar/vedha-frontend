@@ -1,39 +1,17 @@
 import FeaturedCard from '@/components/FeaturedCard'
 
-const FeatureSection = ({ children }) => {
-    const featuredSubjects = [
-        {
-            title: 'Physics',
-            chapter: 'Chapter 1',
-            imageUrl: '/ufo.png',
-        },
-        {
-            title: 'Chemistry',
-            chapter: 'Chapter 2',
-            imageUrl: '/ufo.png',
-        },
-        {
-            title: 'Biology',
-            chapter: 'Chapter 3',
-            imageUrl: '/ufo.png',
-        },
-        {
-            title: 'Geography',
-            chapter: 'Chapter 3',
-            imageUrl: '/ufo.png',
-        },
-    ]
-
+const FeaturedSection = ({ children, featuredCardsData }) => {
     return (
         <div className="bg-white">
             <p className="text-black text-3xl px-10 pt-10">Welcome back Manas!</p>
             <div className="w-full  h-auto  px-10 py-3 pb-8  flex-row flex justify-start  overflow-x-scroll">
-                {featuredSubjects.map((subject) => (
+                {featuredCardsData.map((card) => (
                     <FeaturedCard
-                        key={subject.title}
-                        title={subject.title}
-                        chapter={subject.chapter}
-                        imageUrl={subject.imageUrl}
+                        key={card.id}
+                        title={card.title}
+                        chapter={card.chapter}
+                        imageUrl={card.imageUrl}
+                        subject={card.subject}
                     />
                 ))}
             </div>
@@ -41,4 +19,4 @@ const FeatureSection = ({ children }) => {
     )
 }
 
-export default FeatureSection
+export default FeaturedSection
