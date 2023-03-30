@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { withAuth } from './api/auth/withAuth'
+import { withAuth } from '@/pages/api/auth/withAuth'
 function NewQuiz() {
     const questions = [
         {
