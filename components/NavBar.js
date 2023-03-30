@@ -80,6 +80,29 @@ const NavBar = (data) => {
                         <span className="text-grey-600 text-md font-medium">Quiz</span>
                     </div>
                 </Link>
+                <Link href="/quizscore">
+                    <div
+                        id="nav-button"
+                        className="flex flex-col items-center lg:flex-row lg:hover:bg-gray-100 text-gray-600 group  rounded-md pr-2 py-3 text-md font-medium"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="grey"
+                            className="w-6 h-6 lg:mx-3 group-hover:text-gray-500 flex-shrink-0"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                            />
+                        </svg>
+
+                        <span className="text-grey-600 text-md font-medium">Quizscore</span>
+                    </div>
+                </Link>
                 <div
                     id="nav-button"
                     className="flex flex-col items-center lg:flex-row lg:hover:bg-gray-100 text-gray-600 group  rounded-md pr-2 py-3 text-md font-medium"
