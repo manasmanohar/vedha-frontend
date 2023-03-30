@@ -5,7 +5,7 @@ import { withAuth } from '@/pages/api/auth/withAuth'
 function Home() {
     const featuredCardsData = [
         {
-            title: '    git push --set-upstream origin subjectSection',
+            title: '   Physics',
             chapter: 'Chapter 1',
             imageUrl: '/ufo.png',
         },

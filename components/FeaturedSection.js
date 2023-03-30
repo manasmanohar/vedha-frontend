@@ -1,5 +1,4 @@
 import FeaturedCard from '@/components/FeaturedCard'
-
 const FeaturedSection = ({ children, featuredCardsData }) => {
     return (
         <div className="bg-white">

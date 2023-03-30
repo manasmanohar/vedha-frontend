@@ -1,34 +1,7 @@
 import { useState } from 'react'
 import { withAuth } from '@/pages/api/auth/withAuth'
+import QuizEditor from '@/components/quizEditor'
 function NewQuiz() {
-    const questions = [
-        {
-            id: 1,
-            question: 'What is the capital of India?',
-            options: {
-                a: 'Delhi',
-                b: 'Mumbai',
-                c: 'Kolkata',
-                d: 'Chennai',
-            },
-            id: 2,
-            question: 'What is the capital of India?',
-            options: {
-                a: 'Delhi',
-                b: 'Mumbai',
-                c: 'Kolkata',
-                d: 'Chennai',
-            },
-            id: 1,
-            question: 'What is the capital of India?',
-            options: {
-                a: 'Delhi',
-                b: 'Mumbai',
-                c: 'Kolkata',
-                d: 'Chennai',
-            },
-        },
-    ]
     const [uploadMessage, setUploadMessage] = useState('')
 
     const handleFileUpload = async (event) => {
@@ -64,11 +37,10 @@ function NewQuiz() {
     }
 
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-screen  ">
+        <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
             <div className="flex flex-col p-10 w-full h-full">
                 <p className="text-3xl text-black mb-2 ">New Quiz</p>
                 <p className="text-lg text-slate-700 mb-4 ">Upload PDF to generate Quiz </p>
-
                 <form encType="multipart/form-data">
                     <div className="flex flex-col items-center justify-center w-full">
                         <label
@@ -107,25 +79,7 @@ function NewQuiz() {
                     </div>
                 </form>
                 {uploadMessage && <p>{uploadMessage}</p>}
-
-                <div className="flex flex-col mt-4 px-2  rounded ">
-                    <p className="text-3xl text-black mb-2 ">Edit Quiz</p>
-
-                    <div>
-                        {questions.map((q) => (
-                            <div key={q.id} className="flex flex-col ml-3 bg-blue-100 rounded">
-                                <p>{q.question}</p>
-                                <div className="flex flex-col">
-                                    {Object.entries(q.options).map(([key, value]) => (
-                                        <textarea key={key} className="bg-transparent" name="" id="" cols="1" rows="1">
-                                            {value}
-                                        </textarea>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <QuizEditor />
             </div>
         </div>
     )
