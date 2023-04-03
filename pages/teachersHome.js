@@ -6,7 +6,6 @@ function teacherHome() {
     const featuredCardsData = [
         {
             title: '   Physics',
-            subjectSection: 'Chapter 1',
             chapter: 'Chapter 1',
             imageUrl: '/ufo.png',
         },

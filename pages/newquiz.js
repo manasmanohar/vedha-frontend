@@ -1,22 +1,42 @@
 import { useState } from 'react'
 import { withAuth } from '@/pages/api/auth/withAuth'
 import QuizEditor from '@/components/quizEditor'
+import ProgressBar from '@badrap/bar-of-progress'
+import NextNProgress from 'nextjs-progressbar'
+
+import axios from 'axios'
+
 function NewQuiz() {
     const [uploadMessage, setUploadMessage] = useState('')
+    const [fileUploaded, setFileUploaded] = useState(false)
+    const [progress, setProgress] = useState(0)
+    const [uploadProgress, setUploadProgress] = useState(0)
 
+    // const progress = new ProgressBar({
+    //     size: 4,
+    //     color: '#29d',
+    //     className: 'z-50',
+    //     delay: 100,
+    // })
     const handleFileUpload = async (event) => {
+        // setShowProgressBar(true) // set showProgressBar state to true before making the API call
+
+        event.preventDefault()
+        setShowProgressBar(true)
         const file = event.target.files[0]
         const formData = new FormData()
         formData.append('file', file)
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/upload', {
-                method: 'POST',
-                body: formData,
+            const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                    setUploadProgress(percentCompleted)
+                },
             })
 
             if (response.status === 200) {
-                const data = await response.json()
+                const data = response.data
                 setUploadMessage(data.message)
                 console.log(data)
                 for (let i = 0; i < data.questions.length; i++) {
@@ -24,8 +44,9 @@ function NewQuiz() {
                     console.log('\n')
                 }
 
-                alert('Sucessfully uploaded')
+                alert('Successfully uploaded')
                 console.log(response)
+                setFileUploaded(true) // set fileUploaded state to true
             } else {
                 setUploadMessage('Upload failed')
                 console.log(response)
@@ -33,11 +54,19 @@ function NewQuiz() {
         } catch (error) {
             console.error(error)
             setUploadMessage('Upload failed')
+        } finally {
+            setShowProgressBar(false) // set showProgressBar state to false after the API call is complete
         }
     }
 
+    const [showProgressBar, setShowProgressBar] = useState(false)
+
+    // const handleUploadButtonClick = () => {
+    //     setShowProgressBar(true) // show progress bar
+    // }
+
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
+        <div id="wrapper" className="bg-secondarywhite w-full h-full overflow-auto  ">
             <div className="flex flex-col p-10 w-full h-full">
                 <p className="text-3xl text-black mb-2 ">New Quiz</p>
                 <p className="text-lg text-slate-700 mb-4 ">Upload PDF to generate Quiz </p>
@@ -79,7 +108,18 @@ function NewQuiz() {
                     </div>
                 </form>
                 {uploadMessage && <p>{uploadMessage}</p>}
-                <QuizEditor />
+                {fileUploaded && <QuizEditor />}
+
+                {showProgressBar && (
+                    <NextNProgress
+                        color="#29d"
+                        startPosition={0.3}
+                        stopDelayMs={200}
+                        height={3}
+                        options={{ showSpinner: false }}
+                    />
+                )}
+                <div className="flex flex-col items-center justify-center w-full">{/* ... */}</div>
             </div>
         </div>
     )
