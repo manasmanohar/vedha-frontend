@@ -1,8 +1,18 @@
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
 import { withAuth } from '@/pages/api/auth/withAuth'
+import supabase from 'lib/supabase-browser'
 
 function Home() {
+    //client component get user data
+    useEffect(() => {
+        async function getData() {
+            const { data } = await supabase.auth.getSession()
+            // ...
+        }
+        getData()
+    }, [])
+
     const featuredCardsData = [
         {
             title: '   Physics',
