@@ -1,8 +1,7 @@
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
-import { withAuth } from '@/lib/auth/withAuth'
 
-function teacherHome() {
+function Teacher() {
     const featuredCardsData = [
         {
             title: '   Physics',
@@ -25,12 +24,13 @@ function teacherHome() {
             imageUrl: '/ufo.png',
         },
     ]
+
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
+        <div id="wrapper" className="bg-secondarywhite w-full h-full">
             <FeaturedSection featuredCardsData={featuredCardsData} />
             <SubjectSection />
         </div>
     )
 }
 
-export default withAuth(teacherHome)
+export default Teacher

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { withAuth } from '@/pages/api/auth/withAuth'
+import { withAuth } from '@/lib/auth/withAuth'
 import QuizEditor from '@/components/quizEditor'
 import ProgressBar from '@badrap/bar-of-progress'
 import NextNProgress from 'nextjs-progressbar'

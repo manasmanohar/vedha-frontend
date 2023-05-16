@@ -1,8 +1,21 @@
+import { useState } from 'react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
-import { withAuth } from '@/lib/auth/withAuth'
 
-function teacherHome() {
+function Student() {
+    const client = useSupabaseClient()
+    const [data, setData] = useState(null)
+
+    // useEffect(() => {
+    //   async function loadData() {
+    //     const { data } = await client.from('<table>').select('<row>')
+    //     setData(data)
+    //   }
+
+    //   return () => setData(null)
+    // }, [])
+
     const featuredCardsData = [
         {
             title: '   Physics',
@@ -25,12 +38,13 @@ function teacherHome() {
             imageUrl: '/ufo.png',
         },
     ]
+
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
+        <div id="wrapper" className="bg-secondarywhite w-full h-full">
             <FeaturedSection featuredCardsData={featuredCardsData} />
             <SubjectSection />
         </div>
     )
 }
 
-export default withAuth(teacherHome)
+export default Student

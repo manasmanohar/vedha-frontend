@@ -1,18 +1,8 @@
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
-import { withAuth } from '@/pages/api/auth/withAuth'
-import supabase from 'lib/supabase-browser'
+import { WithAuth } from '@/lib/auth/withAuth'
 
 function Home() {
-    //client component get user data
-    useEffect(() => {
-        async function getData() {
-            const { data } = await supabase.auth.getSession()
-            // ...
-        }
-        getData()
-    }, [])
-
     const featuredCardsData = [
         {
             title: '   Physics',
@@ -35,12 +25,15 @@ function Home() {
             imageUrl: '/ufo.png',
         },
     ]
+
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full  ">
-            <FeaturedSection featuredCardsData={featuredCardsData} />
-            <SubjectSection />
-        </div>
+        <WithAuth>
+            <div id="wrapper" className="bg-secondarywhite w-full h-full">
+                <FeaturedSection featuredCardsData={featuredCardsData} />
+                <SubjectSection />
+            </div>
+        </WithAuth>
     )
 }
 
-export default withAuth(Home)
+export default Home

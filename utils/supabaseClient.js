@@ -28,11 +28,3 @@ export const signOut = async () => {
         console.error(error)
     }
 }
-
-export const useSignInWithGoogle = () => {
-    useEffect(() => {
-        signInWithGoogle()
-    }, [])
-}
-
-// export { useSignInWithGoogle, signOut }

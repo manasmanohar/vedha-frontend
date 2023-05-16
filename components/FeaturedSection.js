@@ -1,5 +1,23 @@
+// import dynamic from 'next/dynamic'
 import FeaturedCard from '@/components/FeaturedCard'
+
+// const StudentDashboard = dynamic(() => import('@/components/StudentDashboard'), {ssr: false})
+// const TeacherDashboard = dynamic(() => import('@/components/TeachDashboard'), {ssr: false})
+
 const FeaturedSection = ({ children, featuredCardsData }) => {
+    // const user = getUser()
+
+    // const isStudent = user.role.includes('student')
+    // const isTeacher = user.role.includes('teacher')
+
+    // if (isStudent) {
+    //     return <StudentDashboard/>
+    // }
+
+    // if (isTeacher) {
+    //     return 'TEACHER'
+    // }
+
     return (
         <div className="bg-white">
             <p className="text-black text-3xl px-10 pt-10">Welcome back Manas!</p>
