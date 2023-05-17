@@ -20,7 +20,8 @@ const FeaturedSection = ({ children, featuredCardsData }) => {
 
     return (
         <div className="bg-white">
-            <p className="text-black text-3xl px-10 pt-10">Welcome back Manas!</p>
+            <p className="text-black text-2xl px-10 pt-10">Welcome back Rahul,</p>
+            <p className="text-gray-600 text-lg px-10 pt-2 ">Continue Learning</p>
             <div className="w-full  h-auto  px-10 py-3 pb-8  flex-row flex justify-start  overflow-x-scroll">
                 {featuredCardsData.map((card) => (
                     <FeaturedCard

@@ -2,26 +2,35 @@ import classNames from 'classnames'
 import { useState } from 'react'
 
 const QuizEditor = (props) => {
-    const [questions, setQuestions] = useState([
-        {
-            id: 1,
-            question: 'What is the capital of India?',
-            options: { a: 'Delhi', b: 'Mumbai', c: 'Kolkata', d: 'Chennai' },
-            correctAnswer: 'a',
-        },
-        {
-            id: 2,
-            question: 'What is the capital of USA?',
-            options: { a: 'New York', b: 'Washington D.C.', c: 'Los Angeles', d: 'Chicago' },
-            correctAnswer: 'b',
-        },
-        {
-            id: 3,
-            question: 'What is the capital of Japan?',
-            options: { a: 'Tokyo', b: 'Kyoto', c: 'Osaka', d: 'Sapporo' },
-            correctAnswer: 'a',
-        },
-    ])
+    // const { ques } = props.questions
+
+    const { questions: ques } = props
+
+    let questions = Object.assign({}, ques)
+    console.log(ques, 'ques qE')
+    console.log(props, 'props qE')
+
+    console.log(questions, 'questions qE')
+    // const [questions, setQuestions] = useState([
+    //     {
+    //         id: 1,
+    //         question: 'What is the capital of India?',
+    //         options: { a: 'Delhi', b: 'Mumbai', c: 'Kolkata', d: 'Chennai' },
+    //         correctAnswer: 'a',
+    //     },
+    //     {
+    //         id: 2,
+    //         question: 'What is the capital of USA?',
+    //         options: { a: 'New York', b: 'Washington D.C.', c: 'Los Angeles', d: 'Chicago' },
+    //         correctAnswer: 'b',
+    //     },
+    //     {
+    //         id: 3,
+    //         question: 'What is the capital of Japan?',
+    //         options: { a: 'Tokyo', b: 'Kyoto', c: 'Osaka', d: 'Sapporo' },
+    //         correctAnswer: 'a',
+    //     },
+    // ])
     const [showPopup, setShowPopup] = useState(false)
 
     const handleQuestionChange = (index, e) => {
@@ -66,9 +75,12 @@ const QuizEditor = (props) => {
                                 <div key={key} className="flex items-center">
                                     <p className="mr-2">{`${key})`}</p>
                                     <textarea
-                                        className={classNames('bg-white rounded-md p-1 mt-1 w-full resize-none', {
-                                            'text-green-600': key === q.correctAnswer,
-                                        })}
+                                        className={classNames(
+                                            'bg-white text-black  rounded-md p-1 mt-1 w-full resize-none',
+                                            {
+                                                'text-green-600': key === q.correctAnswer,
+                                            }
+                                        )}
                                         name=""
                                         id=""
                                         cols="1"

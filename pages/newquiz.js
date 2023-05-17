@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { withAuth } from '@/lib/auth/withAuth'
 import QuizEditor from '@/components/quizEditor'
 import ProgressBar from '@badrap/bar-of-progress'
 import NextNProgress from 'nextjs-progressbar'
+import NavBarTeacher from '@/components/NavBarTeacher'
 
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ function NewQuiz() {
     const [fileUploaded, setFileUploaded] = useState(false)
     const [progress, setProgress] = useState(0)
     const [uploadProgress, setUploadProgress] = useState(0)
-
+    let data = []
     // const progress = new ProgressBar({
     //     size: 4,
     //     color: '#29d',
@@ -36,13 +36,33 @@ function NewQuiz() {
             })
 
             if (response.status === 200) {
-                const data = response.data
+                data = response.data
                 setUploadMessage(data.message)
-                console.log(data)
-                for (let i = 0; i < data.questions.length; i++) {
-                    console.log(data.questions[i])
-                    console.log('\n')
-                }
+                console.log(data.questions, 'data newquiz')
+
+                console.log(data.questions, 'data.questions newquiz')
+
+                // for (let i = 0; i < data.questions.length; i++) {
+                //     console.log(data.questions[i], 'question')
+                //     console.log('\n')
+                // }
+                //
+                // const data1 = response.data.questions
+                // const formattedData = data1.map((item) => {
+                //     return {
+                //         id: item.id,
+                //         question: item.question_statement,
+                //         options: {
+                //             a: item.options[0],
+                //             b: item.options[1],
+                //             c: item.options[2],
+                //             d: item.options[3],
+                //         },
+                //         correctAnswer: item.answer,
+                //     }
+                // })
+
+                ///
 
                 alert('Successfully uploaded')
                 console.log(response)
@@ -66,8 +86,10 @@ function NewQuiz() {
     // }
 
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full overflow-auto  ">
-            <div className="flex flex-col p-10 w-full h-full">
+        <div id="wrapper" className="bg-secondarywhite  flex flex-col-reverse lg:flex-row w-full h-full">
+            <NavBarTeacher className="lg:w-1/4 flex-shrink-0" />
+
+            <div className="flex flex-col p-10 w-full h-full overflow-y-auto">
                 <p className="text-3xl text-black mb-2 ">New Quiz</p>
                 <p className="text-lg text-slate-700 mb-4 ">Upload PDF to generate Quiz </p>
                 <form encType="multipart/form-data">
@@ -108,8 +130,8 @@ function NewQuiz() {
                     </div>
                 </form>
                 {uploadMessage && <p>{uploadMessage}</p>}
-                {fileUploaded && <QuizEditor />}
-
+                {fileUploaded && <QuizEditor data={data} />}
+                console.log(data, 'data quiz editoe')
                 {showProgressBar && (
                     <NextNProgress
                         color="#29d"
@@ -119,10 +141,10 @@ function NewQuiz() {
                         options={{ showSpinner: false }}
                     />
                 )}
-                <div className="flex flex-col items-center justify-center w-full">{/* ... */}</div>
+                <div className="flex flex-col items-center justify-center w-full h-full">{/* ... */}</div>
             </div>
         </div>
     )
 }
 
-export default withAuth(NewQuiz)
+export default NewQuiz

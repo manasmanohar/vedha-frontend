@@ -1,10 +1,10 @@
 import FeaturedSection from '@/components/FeaturedSection'
 import SubjectSection from '@/components/SubjectSection'
-
+import NavBarTeacher from '@/components/NavBarTeacher'
 function Teacher() {
     const featuredCardsData = [
         {
-            title: '   Physics',
+            title: '   Physics Chapter 1',
             chapter: 'Chapter 1',
             imageUrl: '/ufo.png',
         },
@@ -26,9 +26,12 @@ function Teacher() {
     ]
 
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full">
-            <FeaturedSection featuredCardsData={featuredCardsData} />
-            <SubjectSection />
+        <div id="wrapper" className="bg-secondarywhite  flex flex-col lg:flex-row w-full h-full">
+            <NavBarTeacher className="lg:w-1/4 flex-shrink-0" />
+            <div className="container">
+                <FeaturedSection featuredCardsData={featuredCardsData} />
+                <SubjectSection />
+            </div>
         </div>
     )
 }

@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import Image from 'next/image'
 import ProgressBar from '@/components/Progressbar'
-import { withAuth } from '@/lib/auth/withAuth'
-
+import NavBarStudent from '@/components/NavBarStudent'
 const qna = [
     {
         question: 'Which is the Strongest force in nature',
@@ -48,8 +47,9 @@ function Quiz() {
         setiscorrectans(false)
     }
     return (
-        <>
-            <div className="">
+        <div id="wrapper" className="bg-secondarywhite  flex flex-col lg:flex-row w-full h-full">
+            <NavBarStudent className="lg:w-1/4 flex-shrink-0" />
+            <div>
                 <div className="flex flex-row ml-12 text-left">
                     <div className="text-black text-xl font-medium my-6">
                         <h3>Forces In Nature</h3>
@@ -132,8 +132,8 @@ function Quiz() {
                     </div>
                 ) : null}
             </div>
-        </>
+        </div>
     )
 }
 
-export default withAuth(Quiz)
+export default Quiz
