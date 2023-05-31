@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
-import { withAuth } from '../lib/auth/withAuth'
-function Subject(props) {
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { useUser } from '@supabase/auth-helpers-react'
+
+function Subject({ subjects }) {
+    console.log(subjects)
+
     return (
         <>
             <div className="bg-gray-300 px-4 py-8">
@@ -48,4 +52,31 @@ function Subject(props) {
     )
 }
 
-export default withAuth(Subject)
+export const getServerSideProps = async (ctx) => {
+    const supabase = createPagesServerClient(ctx)
+    const { data } = await supabase.auth.getSession()
+
+    if (!data.session) {
+        return {
+            redirect: {
+                destination: '/landingpage',
+                permanent: false,
+            },
+        }
+    }
+
+    const subjects = [
+        { id: 1, name: 'Subject 1' },
+        { id: 2, name: 'Subject 2' },
+    ] // EXAMPLE ONLY - supabase.db.findMany('SUBJECTS FOR USER')
+
+    return {
+        props: {
+            subjects,
+            initialSession: data.session,
+            user: data.session.user,
+        },
+    }
+}
+
+export default Subject

@@ -1,23 +1,13 @@
-import { createClient } from '@supabase/supabase-js'
-import { useEffect } from 'react'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-export const supabase = createClient(supabaseUrl, supabaseKey, {
-    autoRefreshToken: true,
-    persistSession: true,
-})
-
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (supabase) => {
     const { user, session, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+            redirectTo: 'http://localhost:3000/api/auth/callback',
+        },
     })
-    console.log(user, 'user')
-    console.log(session, 'session')
 
     if (error) {
-        console.error(error, 'error')
+        console.error(error)
     }
 }
 
@@ -28,3 +18,5 @@ export const signOut = async () => {
         console.error(error)
     }
 }
+//NEXT_PUBLIC_SUPABASE_ANON_KEY
+//NEXT_PUBLIC_SUPABASE_URL

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 
 const FeaturedCard = ({ key, title, chapter, imageUrl, subject }) => {
-    console.log(subject)
     return (
         <>
             <div className="relative bg-blue-300 rounded-lg p-5 w-96 h-60 flex-shrink-0 mr-10 mx-auto overflow-hidden">

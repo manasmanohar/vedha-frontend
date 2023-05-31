@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import Layout from '@/components/Layout'
 import { useRouter } from 'next/router'
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
+import { signInWithGoogle } from 'utils/supabaseClient'
+
 function LandingPageContent() {
-    // const client = useSupabaseClient()
+    const client = useSupabaseClient()
     const router = useRouter()
 
     return (
@@ -29,19 +32,11 @@ function LandingPageContent() {
                         </p>
                         <div className="flex justify-center md:justify-start">
                             <button
-                                onClick={() => router.push('/student')}
+                                onClick={() => signInWithGoogle(client)}
                                 type="button"
                                 className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
                             >
-                                I'm a student
-                            </button>
-
-                            <button
-                                onClick={() => router.push('/teacher')}
-                                type="button"
-                                className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
-                            >
-                                I'm a teacher
+                                Login
                             </button>
                         </div>
                     </div>
@@ -52,6 +47,24 @@ function LandingPageContent() {
             </div>
         </Layout>
     )
+}
+
+export const getServerSideProps = async (ctx) => {
+    const supabase = createPagesServerClient(ctx)
+    const { data } = await supabase.auth.getSession()
+
+    if (data.session) {
+        return {
+            redirect: {
+                destination: '/home',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {},
+    }
 }
 
 export default function LandingPage() {

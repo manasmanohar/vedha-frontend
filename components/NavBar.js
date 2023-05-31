@@ -1,6 +1,11 @@
 import Link from 'next/link'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useRouter } from 'next/router'
 
 const NavBar = (data) => {
+    const supabase = useSupabaseClient()
+    const router = useRouter()
+
     return (
         <nav className="bg-white  flex  sm:sticky  lg:flex-col sm:flex-row  lg:w-64 bottom-0 lg:left-0 lg:h-full  lg:py-6 lg:px-3 sm:px-5 lg:border-r-2 sm:border-t-2">
             <div className=" hidden lg:flex lg:items-center">
@@ -169,6 +174,17 @@ const NavBar = (data) => {
                     </svg>
 
                     <span className="text-grey-600 text-md font-medium">Profile</span>
+                </div>
+                <div>
+                    <button
+                        className="flex flex-col items-center lg:flex-row lg:hover:bg-gray-100 text-gray-600 group  rounded-md pr-2 py-3 text-md font-medium"
+                        onClick={async () => {
+                            await supabase.auth.signOut()
+                            router.push('/landingpage')
+                        }}
+                    >
+                        Logout
+                    </button>
                 </div>
             </div>
         </nav>
