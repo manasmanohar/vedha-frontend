@@ -136,4 +136,4 @@ function Quiz() {
     )
 }
 
-export default withAuth(Quiz)
+export default Quiz
