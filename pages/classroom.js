@@ -1,25 +1,45 @@
 import { useState } from 'react'
-// import { withAuth } from '@/pages/api/auth/withAuth'
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUser } from '@supabase/auth-helpers-react'
+import { supabase } from '../lib/supabaseClient'
 
 function Classroom() {
+    const user = useUser()
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
-    const [classNo, setClassNo] = useState('')
+    const [classNumber, setClassNumber] = useState('')
     const [classCode, setClassCode] = useState('')
-
-    const generateCode = () => {
-        const code = Math.random().toString(36).substring(2, 8)
-        setClassCode(code)
-    }
 
     const handleShare = () => {
         // const url = `https://example.com/classroom/${classCode}`
         // implement share functionality here
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        generateCode()
+
+        try {
+            await fetch('/api/supabase/classrooms/create', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name,
+                    subject,
+                    classNumber,
+                }),
+                headers: {
+                    'content-type': 'application/json',
+                    accept: 'application/json',
+                },
+            }).then(async (res) => {
+                if (res.ok) {
+                    const data = await res.json()
+                    setClassCode(data.code)
+                }
+            })
+        } catch (error) {
+            console.error('Error creating classroom:', error)
+        }
     }
 
     return (
@@ -56,16 +76,16 @@ function Classroom() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2" htmlFor="classNo">
+                        <label className="block text-gray-700 font-bold mb-2" htmlFor="classNumber">
                             Class No.
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="classNo"
+                            id="classNumber"
                             type="text"
                             placeholder="Eg: Lecture Hall 12"
-                            value={classNo}
-                            onChange={(e) => setClassNo(e.target.value)}
+                            value={classNumber}
+                            onChange={(e) => setClassNumber(e.target.value)}
                         />
                     </div>
                     <button
@@ -90,6 +110,24 @@ function Classroom() {
             </div>
         </div>
     )
+}
+
+export const getServerSideProps = async (ctx) => {
+    const supabase = createPagesServerClient(ctx)
+    const { data } = await supabase.auth.getSession()
+
+    if (!data.session) {
+        return {
+            redirect: {
+                destination: '/home',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {},
+    }
 }
 
 export default Classroom

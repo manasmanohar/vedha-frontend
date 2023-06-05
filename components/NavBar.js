@@ -105,7 +105,7 @@ const NavBar = (data) => {
                             />
                         </svg>
 
-                        <span className="text-grey-600 text-md font-medium">newquiz</span>
+                        <span className="text-grey-600 text-md font-medium">create classroom</span>
                     </div>
                 </Link>
                 <Link href="/quizscore">
