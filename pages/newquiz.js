@@ -1,15 +1,15 @@
 import { useState } from 'react'
-import QuizEditor from '@/components/quizEditor'
-import ProgressBar from '@badrap/bar-of-progress'
-import NextNProgress from 'nextjs-progressbar'
-
+import QuizEditor from '@/components/QuizEditor'
+import SaveQuiz from '@/components/SaveQuiz'
 import axios from 'axios'
 
 function NewQuiz() {
+    const [questions, setQuestions] = useState([])
     const [uploadMessage, setUploadMessage] = useState('')
     const [fileUploaded, setFileUploaded] = useState(false)
     const [progress, setProgress] = useState(0)
     const [uploadProgress, setUploadProgress] = useState(0)
+    const [showProgressBar, setShowProgressBar] = useState(false)
 
     // const progress = new ProgressBar({
     //     size: 4,
@@ -37,15 +37,16 @@ function NewQuiz() {
             if (response.status === 200) {
                 const data = response.data
                 setUploadMessage(data.message)
-                console.log(data)
-                for (let i = 0; i < data.questions.length; i++) {
-                    console.log(data.questions[i])
-                    console.log('\n')
-                }
-
-                alert('Successfully uploaded')
-                console.log(response)
                 setFileUploaded(true) // set fileUploaded state to true
+                
+                if (data.questions.length > 0) {
+                    setQuestions(data.questions.map(item => {
+                        return {
+                            ...item,
+                            options: Object.values(item.options)
+                        }
+                    }))
+                }
             } else {
                 setUploadMessage('Upload failed')
                 console.log(response)
@@ -58,11 +59,7 @@ function NewQuiz() {
         }
     }
 
-    const [showProgressBar, setShowProgressBar] = useState(false)
 
-    // const handleUploadButtonClick = () => {
-    //     setShowProgressBar(true) // show progress bar
-    // }
 
     return (
         <div id="wrapper" className="bg-secondarywhite w-full h-full overflow-auto  ">
@@ -106,19 +103,12 @@ function NewQuiz() {
                         </button>
                     </div>
                 </form>
-                {uploadMessage && <p>{uploadMessage}</p>}
-                {fileUploaded && <QuizEditor />}
-
-                {showProgressBar && (
-                    <NextNProgress
-                        color="#29d"
-                        startPosition={0.3}
-                        stopDelayMs={200}
-                        height={3}
-                        options={{ showSpinner: false }}
-                    />
+                {fileUploaded && (
+                    <QuizEditor questions={questions} setQuestions={setQuestions}>
+                        <SaveQuiz questions={questions} onSave={SaveQuiz} />
+                    </QuizEditor>
                 )}
-                <div className="flex flex-col items-center justify-center w-full">{/* ... */}</div>
+                {/* Show progress bar */}
             </div>
         </div>
     )
