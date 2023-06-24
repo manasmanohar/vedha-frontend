@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useUser } from '@supabase/auth-helpers-react'
-import { supabase } from '../lib/supabaseClient'
 
 function Classroom() {
     const user = useUser()

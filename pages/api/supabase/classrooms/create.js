@@ -21,18 +21,15 @@ const handler = async (req, res) => {
     const code = generateCode()
 
     try {
-        const row = await supabase.from('classrooms').insert([
+        await supabase.from('classrooms').insert([
             {
                 name: body.name,
                 code,
                 teacher_id: auth.data.session.user.id,
-                // Add other fields you want to insert
             },
-        ])
-
-        console.log('row', row)
+        ])    
     } catch (err) {
-        console.log(err)
+        console.error(err)
     }
 
     return res.json({ code })

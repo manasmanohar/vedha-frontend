@@ -197,5 +197,4 @@ const NavBar = (data) => {
     )
 }
 
-
 export default NavBar

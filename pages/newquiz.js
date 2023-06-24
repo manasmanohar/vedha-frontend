@@ -1,71 +1,75 @@
-import { useState } from 'react'
-import QuizEditor from '@/components/QuizEditor'
-import SaveQuiz from '@/components/SaveQuiz'
-import axios from 'axios'
+import { useState, useCallback } from 'react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import QuizEditor from '@/components/QuizEditor';
+import SaveQuiz from '@/components/SaveQuiz';
+import axios from 'axios';
 
 function NewQuiz() {
-    const [questions, setQuestions] = useState([])
-    const [uploadMessage, setUploadMessage] = useState('')
-    const [fileUploaded, setFileUploaded] = useState(false)
-    const [progress, setProgress] = useState(0)
-    const [uploadProgress, setUploadProgress] = useState(0)
-    const [showProgressBar, setShowProgressBar] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+    const [questions, setQuestions] = useState([]);
+    const [fileUploaded, setFileUploaded] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [quizSaved, setQuizSaved] = useState(false);
 
-    // const progress = new ProgressBar({
-    //     size: 4,
-    //     color: '#29d',
-    //     className: 'z-50',
-    //     delay: 100,
-    // })
+    const supabase = useSupabaseClient();
+
     const handleFileUpload = async (event) => {
-        // setShowProgressBar(true) // set showProgressBar state to true before making the API call
-
-        event.preventDefault()
-        setShowProgressBar(true)
-        const file = event.target.files[0]
-        const formData = new FormData()
-        formData.append('file', file)
+        event.preventDefault();
+        setShowModal(true);
 
         try {
+            const file = event.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
             const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
                 onUploadProgress: (progressEvent) => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                    setUploadProgress(percentCompleted)
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    setUploadProgress(percentCompleted);
                 },
-            })
+            });
 
             if (response.status === 200) {
-                const data = response.data
-                setUploadMessage(data.message)
-                setFileUploaded(true) // set fileUploaded state to true
-                
+                const data = response.data;
+                setFileUploaded(true);
+
                 if (data.questions.length > 0) {
-                    setQuestions(data.questions.map(item => {
+                    setQuestions(data.questions.map((item) => {
                         return {
                             ...item,
-                            options: Object.values(item.options)
-                        }
-                    }))
+                            options: Object.values(item.options),
+                        };
+                    }));
                 }
             } else {
-                setUploadMessage('Upload failed')
-                console.log(response)
+                console.log(response);
             }
         } catch (error) {
-            console.error(error)
-            setUploadMessage('Upload failed')
+            console.error(error);
         } finally {
-            setShowProgressBar(false) // set showProgressBar state to false after the API call is complete
+            setShowModal(false);
         }
-    }
+    };
 
+    const saveToSupabase = useCallback(async (item) => {
+        try {
+            const { data, error } = await supabase
+                .from('quizzes')
+                .insert({ id: '', classroom_id: '', teacher_id: '', quiz_data: item });
 
+            if (data) {
+                setQuizSaved(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }, [supabase]);
 
     return (
-        <div id="wrapper" className="bg-secondarywhite w-full h-full overflow-auto  ">
+        <div id="wrapper" className="bg-secondarywhite w-full h-full overflow-auto">
             <div className="flex flex-col p-10 w-full h-full">
-                <p className="text-3xl text-black mb-2 ">New Quiz</p>
-                <p className="text-lg text-slate-700 mb-4 ">Upload PDF to generate Quiz </p>
+                <p className="text-3xl text-black mb-2">New Quiz</p>
+                <p className="text-lg text-slate-700 mb-4">Upload PDF to generate Quiz</p>
                 <form encType="multipart/form-data">
                     <div className="flex flex-col items-center justify-center w-full">
                         <label
@@ -96,22 +100,59 @@ function NewQuiz() {
                             <input id="dropzone-file" type="file" className="hidden" onChange={handleFileUpload} />
                         </label>
                         <button
-                            className="bg-blue-800 text-white p-5 w-24 rounded-lg  mt-10 h-10 flex justify-between text-center items-center"
+                            className="bg-blue-800 text-white p-5 w-24 rounded-lg mt-10 h-10 flex justify-between text-center items-center"
                             type="submit"
                         >
-                            upload
+                            Upload
                         </button>
                     </div>
                 </form>
                 {fileUploaded && (
-                    <QuizEditor questions={questions} setQuestions={setQuestions}>
-                        <SaveQuiz questions={questions} onSave={SaveQuiz} />
+                    <QuizEditor questions={questions} onChange={setQuestions}>
+                        <button
+                            className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center w-full"
+                            onClick={() => {
+                                saveToSupabase(questions);
+                            }}
+                        >
+                            Save
+                        </button>
                     </QuizEditor>
                 )}
-                {/* Show progress bar */}
+                {showModal && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                        <div className="bg-white p-4 rounded-lg">
+                            <div className="flex items-center mb-4">
+                                <svg
+                                    className="animate-spin mr-2 h-5 w-5 text-gray-800"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle
+                                        className="opacity-25"
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                    ></circle>
+                                    <path
+                                        className="opacity-75"
+                                        fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 0012 20c4.411 0 8-3.589 8-8h-2c0 3.309-2.691 6-6 6-1.65 0-3.15-.641-4.291-1.709L6 14.29z"
+                                    ></path>
+                                </svg>
+                                <p className="text-lg text-gray-800">Uploading file...</p>
+                            </div>
+                            <p>{uploadProgress}% complete</p>
+                        </div>
+                    </div>
+                )}
+                {quizSaved && <p>Quiz saved!</p>}
             </div>
         </div>
-    )
+    );
 }
 
-export default NewQuiz
+export default NewQuiz;
