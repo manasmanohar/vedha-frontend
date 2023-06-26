@@ -10,22 +10,22 @@ function Home() {
         {
             title: '   Physics',
             chapter: 'Chapter 1',
-            imageUrl: '/ufo.png',
+            imageUrl: '/leonardo.png',
         },
         {
             title: 'Chemistry',
             chapter: 'Chapter 2',
-            imageUrl: '/ufo.png',
+            imageUrl: '/penguin-2.png',
         },
         {
             title: 'Biology',
             chapter: 'Chapter 3',
-            imageUrl: '/ufo.png',
+            imageUrl: '/.png',
         },
         {
             title: 'Geography',
             chapter: 'Chapter 3',
-            imageUrl: '/ufo.png',
+            imageUrl: '/sun.png',
         },
     ]
 

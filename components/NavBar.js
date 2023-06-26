@@ -11,11 +11,16 @@ const NavBar = (data) => {
     }
 
     return (
-        <nav className="bg-white  flex  sm:sticky  lg:flex-col sm:flex-row  lg:w-64 bottom-0 lg:left-0 lg:h-full  lg:py-6 lg:px-3 sm:px-5 lg:border-r-2 sm:border-t-2">
-            <div className=" hidden lg:flex lg:items-center">
-                <img src="https://img.icons8.com/fluency/48/null/student-center.png" />
-                <p className="text-lg ml-2 font-bold text-black">Vedha</p>
-            </div>
+        // <nav className="bg-white  flex  sm:sticky  lg:flex-col sm:flex-row  lg:w-64 bottom-0 lg:left-0 lg:h-full  lg:py-6 lg:px-3 sm:px-5 lg:border-r-2 sm:border-t-2">
+        //     <div className=" hidden lg:flex lg:items-center">
+        //         <img src="https://img.icons8.com/fluency/48/null/student-center.png" />
+        //         <p className="text-lg ml-2 font-bold text-black">Vedha</p>
+        //     </div>
+        <nav className="bg-white flex sm:sticky lg:flex-col sm:flex-row lg:w-64 bottom-0 left-0 py-6 px-3 border-t-2">
+        <div className="hidden lg:flex lg:items-center">
+            <img src="https://img.icons8.com/fluency/48/null/student-center.png" />
+            <p className="text-lg ml-2 font-bold text-black">Vedha</p>
+        </div>
 
             <div
                 id="navButton-wrapper"
@@ -109,7 +114,7 @@ const NavBar = (data) => {
                             />
                         </svg>
 
-                        <span className="text-grey-600 text-md font-medium">create classroom</span>
+                        <span className="text-grey-600 text-md font-medium">Classroom</span>
                     </div>
                 </Link>
                 <Link href="/quizscore">
@@ -132,7 +137,7 @@ const NavBar = (data) => {
                             />
                         </svg>
 
-                        <span className="text-grey-600 text-md font-medium">Quizscore</span>
+                        <span className="text-grey-600 text-md font-medium">Quiz Score</span>
                     </div>
                 </Link>
                 <Link href="/newquiz">
@@ -155,7 +160,7 @@ const NavBar = (data) => {
                             />
                         </svg>
 
-                        <span className="text-grey-600 text-md font-medium">newquiz</span>
+                        <span className="text-grey-600 text-md font-medium">New quiz</span>
                     </div>
                 </Link>
                
@@ -170,8 +175,9 @@ const NavBar = (data) => {
                         Logout
                     </button>
                 </div> */}
-
-<div
+                
+                <Link href="/newquiz">
+                <div
                 id="nav-button"
                 className="flex flex-col items-center lg:flex-row lg:hover:bg-gray-100 text-gray-600 group rounded-md pr-2 py-3 text-md font-medium"
                 onClick={handleLogout}
@@ -191,7 +197,8 @@ const NavBar = (data) => {
                     />
                 </svg>
                 <span className="text-grey-600 text-md font-medium">Logout</span>
-            </div>
+                    </div>
+                    </Link>
             </div>
         </nav>
     )

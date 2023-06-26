@@ -4,9 +4,9 @@ import Leaderboard from '../components/Leaderboard'
 const quiz = {
     quizname: 'Science Quiz',
     scores: [
-        { name: 'John', score: 8 },
-        { name: 'Emma', score: 9 },
-        { name: 'Alex', score: 6 },
+        { name: 'John', score: 5 },
+        { name: 'Emma', score: 4 },
+        { name: 'Manas Manohar', score: 3},
         { name: 'Sarah', score: 7 },
     ],
 }
@@ -14,7 +14,7 @@ const quiz = {
 const QuizScore = () => {
     return (
         <>
-            <Leaderboard quiz={quiz} />;
+            <Leaderboard className="p-10"quiz={quiz} />;
         </>
     )
 }
